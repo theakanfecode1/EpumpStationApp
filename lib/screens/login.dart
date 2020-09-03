@@ -74,7 +74,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             Provider.of<CompanyMyBranchesStore>(context, listen: false);
         await companyStore.getBranch();
         sharedPreferences.setBool("LOGGED_IN", true);
-        sharedPreferences.setString("LOGGED_IN_AS", "BRANCHMANAGER");
+        sharedPreferences.setString("LOGGED_IN_AS", "BRANCHMANAGER_SUBBRANCHMANAGER_SUPERVISOR");
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed("/dashboard");
       } else if (loginStore.loginDetails.role.toLowerCase() == "companyadmin") {
@@ -219,7 +219,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     hint: "Password",
                     onTextChanged: onTextChangedPassword,
                     assetName: Constants.getAssetGeneralName("locked", "svg"),
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.go,
                     textInputType: null,
                     obsecureText: true,
                     onSubmitted:

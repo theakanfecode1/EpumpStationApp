@@ -28,15 +28,7 @@ class _PriceChangeState extends State<PriceChange> {
   bool dataIsLoaded = false;
   String productId = "";
   Map data = {};
-  String role = "";
 
-  void getRole() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      role = sharedPreferences.getString("ROLE");
-
-    });
-  }
 
   textFromConfirmationDialog(String password) async {
     if (password != NetworkRequest.PASSWORD || password.isEmpty) {
@@ -101,6 +93,8 @@ class _PriceChangeState extends State<PriceChange> {
 
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

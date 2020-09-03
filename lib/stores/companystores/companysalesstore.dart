@@ -17,6 +17,9 @@ abstract class _CompanySalesStore with Store {
   List<MyBranches> branches = [];
 
   @observable
+  List<MyBranches> filteredBranches = [];
+
+  @observable
   dynamic todayPmsAmount = 0.00;
 
   @observable
@@ -173,6 +176,8 @@ abstract class _CompanySalesStore with Store {
     switch (response["statusCode"]) {
       case 200:
         branches = response["object"];
+        branches.sort((a,b) => a.name.compareTo(b.name));
+
         return NetworkStrings.SUCCESSFUL;
         break;
       case 401:
@@ -192,4 +197,29 @@ abstract class _CompanySalesStore with Store {
         break;
     }
   }
+
+  @action
+  void sortBranches(String sortBy){
+    if(sortBy == "PMS"){
+      branches.sort((a,b) => a.pmsTotalVolume.compareTo(b.pmsTotalVolume));
+    }else if(sortBy == "DPK"){
+      branches.sort((a,b) => a.dpkTotalVolume.compareTo(b.dpkTotalVolume));
+    }else{
+      branches.sort((a,b) => a.agoTotalVolume.compareTo(b.agoTotalVolume));
+    }
+  }
+
+  @action
+  void filterBranches(String text){
+    filteredBranches.clear();
+    if(text.isEmpty){
+      return;
+    }
+    branches.forEach((branch) {
+      if(branch.name.contains(text)){
+        filteredBranches.add(branch);
+      }
+    });
+  }
+
 }

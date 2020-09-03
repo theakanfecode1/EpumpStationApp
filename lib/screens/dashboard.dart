@@ -241,14 +241,20 @@ class _DashboardState extends State<Dashboard> {
                                     height: 5,
                                   ),
                                   Observer(
-                                    builder: (_) => Text(
-                                      Constants.formatThisInput(branchStore.pms),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
+                                    builder: (_) => SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(
+                                          Constants.formatThisInput(branchStore.pms),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                   SizedBox(
@@ -290,13 +296,19 @@ class _DashboardState extends State<Dashboard> {
                                     height: 5,
                                   ),
                                   Observer(
-                                    builder: (_) => Text(
-                                      Constants.formatThisInput(branchStore.dpk),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                      textAlign: TextAlign.center,
+                                    builder: (_) => SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(
+                                          Constants.formatThisInput(branchStore.dpk),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -338,13 +350,19 @@ class _DashboardState extends State<Dashboard> {
                                     height: 5,
                                   ),
                                   Observer(
-                                    builder: (_) => Text(
-                                        Constants.formatThisInput(branchStore.ago),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13),
-                                      textAlign: TextAlign.center,
+                                    builder: (_) => SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(
+                                            Constants.formatThisInput(branchStore.ago),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -492,12 +510,15 @@ class GridList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Text(
-                    amount,
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      amount,
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(

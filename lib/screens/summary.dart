@@ -317,35 +317,41 @@ class DetailsCard extends StatelessWidget {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SvgPicture.asset(
-                                Constants.getAssetGeneralName("naira", "svg"),
-                                color: Colors.grey[700],
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                pmsAmount,
-                                style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ],
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  Constants.getAssetGeneralName("naira", "svg"),
+                                  color: Colors.grey[700],
+                                  width: 12,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  pmsAmount,
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            pmsVolume + "ltr(s)",
-                            style: TextStyle(
-                                color: Colors.grey[500],
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              pmsVolume + "ltr(s)",
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12),
+                            ),
                           ),
                         ],
                       ),
@@ -372,35 +378,41 @@ class DetailsCard extends StatelessWidget {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SvgPicture.asset(
-                                Constants.getAssetGeneralName("naira", "svg"),
-                                color: Colors.grey[700],
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                dpkAmount,
-                                style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ],
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  Constants.getAssetGeneralName("naira", "svg"),
+                                  color: Colors.grey[700],
+                                  width: 12,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  dpkAmount,
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            dpkVolume + "ltr(s)",
-                            style: TextStyle(
-                                color: Colors.grey[500],
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              dpkVolume + "ltr(s)",
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12),
+                            ),
                           ),
                         ],
                       ),
@@ -427,35 +439,41 @@ class DetailsCard extends StatelessWidget {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SvgPicture.asset(
-                                Constants.getAssetGeneralName("naira", "svg"),
-                                color: Colors.grey[700],
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                agoAmount,
-                                style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ],
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  Constants.getAssetGeneralName("naira", "svg"),
+                                  color: Colors.grey[700],
+                                  width: 12,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  agoAmount,
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            agoVolume + "ltr(s)",
-                            style: TextStyle(
-                                color: Colors.grey[500],
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              agoVolume + "ltr(s)",
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12),
+                            ),
                           ),
                         ],
                       ),
