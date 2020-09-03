@@ -9,10 +9,11 @@ class CustomTextBox extends StatefulWidget {
   final TextInputType textInputType;
   final bool obsecureText;
   final Function onSubmitted;
+  final Function onTextChanged;
 
 
   CustomTextBox({this.controller, this.hint, this.assetName,
-      this.textInputAction, this.textInputType,this.obsecureText,this.onSubmitted});
+      this.textInputAction, this.textInputType,this.obsecureText,this.onSubmitted,this.onTextChanged});
 
   @override
   _CustomTextBoxState createState() => _CustomTextBoxState();
@@ -59,6 +60,9 @@ class _CustomTextBoxState extends State<CustomTextBox> {
         obscureText: widget.obsecureText,
         onSubmitted: (text){
           widget.onSubmitted(text);
+        },
+        onChanged: (text){
+          widget.onTextChanged(text);
         },
       ),
     );

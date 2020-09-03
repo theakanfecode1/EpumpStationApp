@@ -23,7 +23,6 @@ import 'package:epump/utils/company/productprice.dart';
 import 'package:epump/utils/staff/branchstaff.dart';
 import 'package:epump/utils/tank/tankdipping.dart';
 import 'package:http/http.dart' as http;
-import 'package:multipart_request/multipart_request.dart' as multipart;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NetworkRequest {
@@ -136,7 +135,6 @@ class NetworkRequest {
         EPUMP_COMPANY + "MyCompanies",
         headers: header,
       );
-      print(response.statusCode.toString() + "STATUS CODE");
       dynamic responseStatus = _checkResponseStatusCode(response);
       if (responseStatus["statusCode"] != 200) {
         return responseStatus;
@@ -217,8 +215,6 @@ class NetworkRequest {
             "price": price,
             "password": password,
           }));
-      print(response.statusCode);
-      print(response);
       dynamic responseStatus = _checkResponseStatusCode(response);
       return responseStatus;
     } on SocketException {
@@ -239,8 +235,6 @@ class NetworkRequest {
         }),
         headers: header,
       );
-      print(response.statusCode);
-      print(response.reasonPhrase);
       dynamic responseStatus = _checkResponseStatusCode(response);
       if (responseStatus["statusCode"] != 200) {
         return responseStatus;
@@ -323,7 +317,6 @@ class NetworkRequest {
         EPUMP_BRANCH + "Pumps/" + BRANCHID,
         headers: header,
       );
-      print(response.statusCode);
       dynamic responseStatus = _checkResponseStatusCode(response);
       if (responseStatus["statusCode"] != 200) {
         return responseStatus;
@@ -471,7 +464,6 @@ class NetworkRequest {
             eSales.toString(),
         headers: header,
       );
-      print(response.body);
       dynamic responseStatus = _checkResponseStatusCode(response);
       if (responseStatus["statusCode"] != 200) {
         return responseStatus;

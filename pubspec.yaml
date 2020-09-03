@@ -24,15 +24,14 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.0+2
-  fluttertoast: ^4.0.0
   flutter_svg: ^0.17.4
+#  flutter_svg: ^0.18.1
   intl: ^0.15.8
   mobx:
   flutter_mobx:
   provider:
   image_picker: ^0.6.7+6
   shared_preferences: ^0.5.10
-  multipart_request: ^0.3.1
 
 
 

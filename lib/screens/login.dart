@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:epump/customwidgets/feedbackwidget.dart';
+import 'package:epump/customwidgets/texterrorwidget.dart';
 import 'package:epump/screens/loadingscreen.dart';
 import 'package:epump/stores/accountstores/accountloginstore.dart';
 import 'package:epump/stores/companystores/companymybranchesstore.dart';
@@ -12,7 +13,6 @@ import 'package:epump/customwidgets/customtextbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,6 +33,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   bool switchButtonColor = false;
 
   double _width = 0.0;
+  bool usernameError = true;
+  bool passwordError = true;
+  bool firstLaunch = false;
+  String userName = "";
+  String password = "";
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -72,10 +77,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         sharedPreferences.setString("LOGGED_IN_AS", "BRANCHMANAGER");
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed("/dashboard");
-
-      }
-      else if (loginStore.loginDetails.role.toLowerCase() == "companyadmin") {
-        final companyStore = Provider.of<CompanyMyBranchesStore>(context, listen: false);
+      } else if (loginStore.loginDetails.role.toLowerCase() == "companyadmin") {
+        final companyStore =
+            Provider.of<CompanyMyBranchesStore>(context, listen: false);
         String result = await companyStore.getCompany();
         if (result == NetworkStrings.SUCCESSFUL) {
           Navigator.of(context).pop();
@@ -144,6 +148,31 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     FocusScope.of(context).nextFocus();
   }
 
+  onTextChangedUsername(String text) {
+    setState(() {
+      userName = text;
+      if (text.isEmpty || text == null) {
+        usernameError = true;
+      } else {
+        usernameError = false;
+      }
+    });
+  }
+
+  onTextChangedPassword(String text) {
+    password = text;
+    firstLaunch = true;
+    if (text.length < 6) {
+      setState(() {
+        passwordError = true;
+      });
+    } else {
+      setState(() {
+        passwordError = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,26 +187,66 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 width: 250,
                 height: 70,
               ),
-              SizedBox(height: 10,),
-              CustomTextBox(
-                controller: usernameController,
-                hint: "Username",
-                assetName: Constants.getAssetGeneralName("user", "svg"),
-                textInputAction: TextInputAction.next,
-                textInputType: TextInputType.emailAddress,
-                obsecureText: false,
-                onSubmitted: onSubmitted,
+              SizedBox(
+                height: 10,
+              ),
+              Stack(
+                children: <Widget>[
+                  CustomTextBox(
+                    controller: usernameController,
+                    hint: "Username",
+                    onTextChanged: onTextChangedUsername,
+                    assetName: Constants.getAssetGeneralName("user", "svg"),
+                    textInputAction: TextInputAction.next,
+                    textInputType: TextInputType.emailAddress,
+                    obsecureText: false,
+                    onSubmitted: onSubmitted,
+                  ),
+                  if (usernameError)
+                    Positioned(
+                        top: 20,
+                        left: MediaQuery.of(context).size.width / 1.8,
+                        child: ErrorPrompt("Not a valid username")),
+                ],
               ),
               SizedBox(
                 height: 20,
               ),
-              CustomTextBox(
-                controller: passwordController,
-                hint: "Password",
-                assetName: Constants.getAssetGeneralName("locked", "svg"),
-                textInputAction: TextInputAction.done,
-                textInputType: null,
-                obsecureText: true,
+              Stack(
+                children: <Widget>[
+                  CustomTextBox(
+                    controller: passwordController,
+                    hint: "Password",
+                    onTextChanged: onTextChangedPassword,
+                    assetName: Constants.getAssetGeneralName("locked", "svg"),
+                    textInputAction: TextInputAction.done,
+                    textInputType: null,
+                    obsecureText: true,
+                    onSubmitted:
+                      !usernameError && !passwordError
+                          ? (text) async {
+//                      startAnimation();
+                        setState(() {
+                          switchButtonColor = true;
+                          _width = MediaQuery.of(context).size.width;
+                        });
+                        loginUser(
+                            usernameController.text == null
+                                ? ""
+                                : usernameController.text,
+                            passwordController.text == null
+                                ? ""
+                                : passwordController.text);
+                      }
+                          : null,
+                  ),
+                  if (passwordError && firstLaunch)
+                    Positioned(
+                        top: 20,
+                        left: MediaQuery.of(context).size.width / 1.8,
+                        child:
+                            ErrorPrompt("Minimum password length must be six")),
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -186,20 +255,22 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 padding: const EdgeInsets.only(right: 10, left: 10),
                 child: Builder(
                   builder: (context) => GestureDetector(
-                    onTap: () async {
+                    onTap: !usernameError && !passwordError
+                        ? () async {
 //                      startAnimation();
-                      setState(() {
-                        switchButtonColor = true;
-                        _width = MediaQuery.of(context).size.width;
-                      });
-                      loginUser(
-                          usernameController.text == null
-                              ? ""
-                              : usernameController.text,
-                          passwordController.text == null
-                              ? ""
-                              : passwordController.text);
-                    },
+                            setState(() {
+                              switchButtonColor = true;
+                              _width = MediaQuery.of(context).size.width;
+                            });
+                            loginUser(
+                                usernameController.text == null
+                                    ? ""
+                                    : usernameController.text,
+                                passwordController.text == null
+                                    ? ""
+                                    : passwordController.text);
+                          }
+                        : null,
                     child: Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(

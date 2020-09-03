@@ -219,13 +219,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  fluttertoast:
-    dependency: "direct main"
-    description:
-      name: fluttertoast
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
   glob:
     dependency: transitive
     description:
@@ -359,13 +352,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0+1"
-  multipart_request:
-    dependency: "direct main"
-    description:
-      name: multipart_request
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   nested:
     dependency: transitive
     description:

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:epump/utils/networkcalls/networkrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:epump/values/gradientcontainer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,12 +26,19 @@ class _SplashScreenState extends State<SplashScreen> {
     if(loggedIn){
       String loggedInAs = sharedPreferences.getString("LOGGED_IN_AS")??"";
       if(loggedInAs.toUpperCase() == "COMPANYADMIN"){
+        NetworkRequest.COMPANYID = sharedPreferences.getString("COMPANY_ID");
+        NetworkRequest.header[HttpHeaders.authorizationHeader] = sharedPreferences.getString("TOKEN");
+        Navigator.of(context).pushReplacementNamed("/companydashboard");
 
       }else{
-
+        NetworkRequest.BRANCHID = sharedPreferences.getString("BRANCH_ID");
+        NetworkRequest.header[HttpHeaders.authorizationHeader] = sharedPreferences.getString("TOKEN");
+        Navigator.of(context).pushReplacementNamed("/dashboard");
       }
+    }else{
+      Navigator.of(context).pushReplacementNamed("/onboarding");
+
     }
-    Navigator.of(context).pushReplacementNamed("/onboarding");
   }
 
   @override
@@ -109,8 +118,8 @@ class _SplashScreenState extends State<SplashScreen> {
                       Image.asset(Constants.getAssetGeneralName(
                           "epumplogo", "png",
                       ),
-                        width: 300,
-                        height: 100,),
+                        width: 250,
+                        height: 80,),
 
                     ],
                   ),
