@@ -58,9 +58,7 @@ class _PriceChangeState extends State<PriceChange> {
       final priceChangeStore =
           Provider.of<PriceChangeStore>(context, listen: false);
       String result = await priceChangeStore.priceChange(
-          NetworkRequest.COMPANYID == ""
-              ? NetworkRequest.BRANCHID
-              : NetworkRequest.COMPANYID,
+         NetworkRequest.BRANCHID,
           productId,
           double.parse(_newPriceController.text),
           password);
