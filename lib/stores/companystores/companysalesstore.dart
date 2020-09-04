@@ -13,11 +13,9 @@ class CompanySalesStore = _CompanySalesStore with _$CompanySalesStore;
 
 abstract class _CompanySalesStore with Store {
 
-  @observable
-  List<MyBranches> branches = [];
 
   @observable
-  List<MyBranches> filteredBranches = [];
+  List<MyBranches> branches = [];
 
   @observable
   dynamic todayPmsAmount = 0.00;
@@ -72,6 +70,24 @@ abstract class _CompanySalesStore with Store {
 
   @observable
   dynamic monthDpkVolume = 0.00;
+
+
+
+  @action
+  void sortBranches(String sortBy){
+    List<MyBranches> temp = branches;
+
+    if(sortBy == "PMS"){
+      temp.sort((b,a) => a.pmsTotalVolume.compareTo(b.pmsTotalVolume));
+      // branches.sort((a,b) => a.name.compareTo(b.name));
+
+    }else if(sortBy == "DPK"){
+      temp.sort((b,a) => a.dpkTotalVolume.compareTo(b.dpkTotalVolume));
+    }else{
+      temp.sort((b,a) => a.agoTotalVolume.compareTo(b.agoTotalVolume));
+    }
+    branches = temp;
+  }
 
   @action
   Future<String> getCompanySales(
@@ -198,28 +214,6 @@ abstract class _CompanySalesStore with Store {
     }
   }
 
-  @action
-  void sortBranches(String sortBy){
-    if(sortBy == "PMS"){
-      branches.sort((a,b) => a.pmsTotalVolume.compareTo(b.pmsTotalVolume));
-    }else if(sortBy == "DPK"){
-      branches.sort((a,b) => a.dpkTotalVolume.compareTo(b.dpkTotalVolume));
-    }else{
-      branches.sort((a,b) => a.agoTotalVolume.compareTo(b.agoTotalVolume));
-    }
-  }
 
-  @action
-  void filterBranches(String text){
-    filteredBranches.clear();
-    if(text.isEmpty){
-      return;
-    }
-    branches.forEach((branch) {
-      if(branch.name.contains(text)){
-        filteredBranches.add(branch);
-      }
-    });
-  }
 
 }

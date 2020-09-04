@@ -318,6 +318,20 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
     return _$getBranchesAsyncAction.run(() => super.getBranches());
   }
 
+  final _$_CompanySalesStoreActionController =
+      ActionController(name: '_CompanySalesStore');
+
+  @override
+  void sortBranches(String sortBy) {
+    final _$actionInfo = _$_CompanySalesStoreActionController.startAction(
+        name: '_CompanySalesStore.sortBranches');
+    try {
+      return super.sortBranches(sortBy);
+    } finally {
+      _$_CompanySalesStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

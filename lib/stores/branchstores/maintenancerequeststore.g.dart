@@ -74,6 +74,15 @@ mixin _$MaintenanceRequestStore on _MaintenanceRequestStore, Store {
     return _$uploadImageAsyncAction.run(() => super.uploadImage(filename));
   }
 
+  final _$resolveRequestAsyncAction =
+      AsyncAction('_MaintenanceRequestStore.resolveRequest');
+
+  @override
+  Future<String> resolveRequest(String id, dynamic amount) {
+    return _$resolveRequestAsyncAction
+        .run(() => super.resolveRequest(id, amount));
+  }
+
   @override
   String toString() {
     return '''
