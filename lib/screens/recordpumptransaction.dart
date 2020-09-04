@@ -53,10 +53,10 @@ class _RecordPumpTransactionState extends State<RecordPumpTransaction> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    Constants.getAssetGeneralName("dashboarddrawer", "svg"),
-                    color: Colors.white,
-                    width: 60,
+                  Image.asset(
+                    Constants.getAssetGeneralName("pumpwhite", "png"),
+                    width: 100,
+                    height: 100,
                   ),
                 ],
               ),

@@ -184,10 +184,10 @@ class CustomListCard extends StatelessWidget {
 //            SizedBox(
 //              width: 20,
 //            ),
-            SvgPicture.asset(
-              Constants.getAssetGeneralName("tankdrawer", "svg"),
-              width: 50,
-              color: CustomColors.REMIS_PURPLE,
+            Image.asset(
+              Constants.getAssetGeneralName("purplepump", "png"),
+              width: 75,
+              height: 75,
             ),
 //            SizedBox(
 //              width: 20,

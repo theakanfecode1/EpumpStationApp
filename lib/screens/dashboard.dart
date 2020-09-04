@@ -413,7 +413,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       Observer(
                         builder: (_) => GridList(
-                          image: Constants.getAssetGeneralName("oil", "svg"),
+                          image: Constants.getAssetGeneralName("epsaless", "svg"),
                           amount: Constants.formatThisInput(branchStore.epumpSales),
                           title: "Epump sales",
                           size: 29,
@@ -451,7 +451,7 @@ class _DashboardState extends State<Dashboard> {
                         child: Observer(
                           builder:(_) => GridList(
                             image: Constants.getAssetGeneralName(
-                                "tankdrawer", "svg"),
+                                "rttank", "svg"),
                             amount:Constants.formatThisInput(branchStore.rtt),
                             title: "Return to tank",
                             size: 28,
@@ -706,9 +706,9 @@ class _DrawerOnlyState extends State<DrawerOnly> {
             Navigator.of(context).pushReplacementNamed("/pumps");
           },
           leading: SvgPicture.asset(
-              Constants.getAssetGeneralName("fueldrawer", "svg"),
+              Constants.getAssetGeneralName("pumpneww", "svg"),
               color: Colors.white,
-              width: 22),
+              width: 30),
           title: Text(
             "Pumps",
             style: TextStyle(
