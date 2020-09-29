@@ -73,7 +73,7 @@ class NetworkRequest {
         sharedPreferences.setString("EMAIL", accountLogin.email);
         return {"statusCode": 200, "object": accountLogin};
       }
-    } on IOException {
+    } on SocketException {
 //      lets assume socket exception will throw 600
       return {"statusCode": 600, "object": null};
     }
