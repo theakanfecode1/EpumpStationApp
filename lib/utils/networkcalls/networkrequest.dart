@@ -339,8 +339,7 @@ class NetworkRequest {
       request.files.add(await http.MultipartFile.fromPath('picture', filename));
       request.headers[HttpHeaders.authorizationHeader] =
           header["authorization"];
-      request.headers[HttpHeaders.contentTypeHeader] =
-          header["application/json"];
+      request.headers[HttpHeaders.contentTypeHeader] = "multipart/form-data";
 
       var res = await request.send();
       print(res.statusCode);
