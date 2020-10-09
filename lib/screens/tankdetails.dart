@@ -2,12 +2,17 @@ import 'package:epump/customwidgets/doubletextfielddialog.dart';
 import 'package:epump/customwidgets/feedbackwidget.dart';
 import 'package:epump/customwidgets/structureddialog.dart';
 import 'package:epump/customwidgets/wave_widget.dart';
+import 'package:epump/stores/branchstores/tankstore.dart';
 import 'package:epump/utils/branch/tank.dart';
+import 'package:epump/utils/networkcalls/networkstrings.dart';
 import 'package:epump/values/colors.dart';
 import 'package:epump/values/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import 'loadingscreen.dart';
 
 class TankDetails extends StatefulWidget {
   final Tank tank;
@@ -23,37 +28,83 @@ class _TankDetailsState extends State<TankDetails> {
     double temp = ((max - current) / max) * 100;
     return (100 - temp);
   }
-  Color setWaveColor(dynamic value){
-    if(value <= 30.00){
+
+  Color setWaveColor(dynamic value) {
+    if (value <= 30.00) {
       return CustomColors.REMIS_RED;
-    }else if(value <= 40.00){
+    } else if (value <= 40.00) {
       return CustomColors.REMIS_WAVE_ORANGE;
-    }else if(value < 70.00){
+    } else if (value < 70.00) {
       return CustomColors.REMIS_WAVE_BLUE;
-    }else{
+    } else {
       return CustomColors.REMIS_WAVE_GREEN;
     }
   }
 
-
- dataFormTankFillDialog(String plateNumber,String openingDip){
-    if(plateNumber.isNotEmpty && openingDip.isNotEmpty){
-      
-    }
-    else{
-      showDialog(context: context,builder: (_){
-        return StructuredDialog(
-          giveRadius: true,
-          child: FeedbackWidget(
-            title: "Invalid Input",
-            status: false,
-            message: "All fields are required",
-          ),
-        );
-      });
+  dataFormTankFillDialog(String plateNumber, String openingDip) async {
+    final tankStore = Provider.of<TankStore>(context,listen: false);
+    if (plateNumber.isNotEmpty && openingDip.isNotEmpty) {
+      Navigator.of(context).push(LoadingWidget.showLoadingScreen("Filling"));
+      String result =
+          await tankStore.startFill(plateNumber, widget.tank.id, openingDip);
+      Navigator.of(context).pop();
+      if (result == NetworkStrings.SUCCESSFUL) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return StructuredDialog(
+                giveRadius: true,
+                child: FeedbackWidget(
+                  title: "Success",
+                  status: true,
+                  message: "Fill complete",
+                ),
+              );
+            });
+      }
+      else if(result == NetworkStrings.SERVER_ERROR){
+        showDialog(
+            context: context,
+            builder: (_) {
+              return StructuredDialog(
+                giveRadius: true,
+                child: FeedbackWidget(
+                  title: "Error",
+                  status: false,
+                  message: "No records found for Tank Probe",
+                ),
+              );
+            });
+      }
+      else {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return StructuredDialog(
+                giveRadius: true,
+                child: FeedbackWidget(
+                  title: "Error",
+                  status: false,
+                  message: result,
+                ),
+              );
+            });
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return StructuredDialog(
+              giveRadius: true,
+              child: FeedbackWidget(
+                title: "Invalid Input",
+                status: false,
+                message: "All fields are required",
+              ),
+            );
+          });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +149,8 @@ class _TankDetailsState extends State<TankDetails> {
                                 WaveWidget(
                                     80.0,
                                     CustomColors.REMIS_PURPLE,
-                                    setWaveColor(calculateWaveHeight(widget.tank.maxCapacity,
+                                    setWaveColor(calculateWaveHeight(
+                                        widget.tank.maxCapacity,
                                         widget.tank.currentVolume)),
                                     calculateWaveHeight(widget.tank.maxCapacity,
                                         widget.tank.currentVolume)),
@@ -241,7 +293,9 @@ class _TankDetailsState extends State<TankDetails> {
                             image: Constants.getAssetGeneralName(
                                 "thermometer", "svg"),
                             title: "Temperature",
-                            amount:Constants.formatThisInput(widget.tank.temperature) +" degrees",
+                            amount: Constants.formatThisInput(
+                                    widget.tank.temperature) +
+                                " degrees",
                             size: 10,
                           ),
                         ),
@@ -263,8 +317,8 @@ class _TankDetailsState extends State<TankDetails> {
                             image:
                                 Constants.getAssetGeneralName("measure", "svg"),
                             title: "Last Probe Volume",
-                            amount: Constants.formatThisInput(widget.tank.probeVolume),
-
+                            amount: Constants.formatThisInput(
+                                widget.tank.probeVolume),
                             size: 30,
                           ),
                         ),
@@ -278,17 +332,20 @@ class _TankDetailsState extends State<TankDetails> {
               height: 15,
             ),
             GestureDetector(
-              onTap: (){
-                showDialog(context: context,builder: (_){
-                  return DoubleTextFieldDialog(
-                    title: "INPUT MANUAL DIPPING",
-                    inputTypeOne: TextInputType.text,
-                    inputTypeTwo: TextInputType.numberWithOptions(decimal: true),
-                    labelOne: "Truck Plate Number",
-                    labelTwo: "Opening Dip",
-                    function: dataFormTankFillDialog,
-                  );
-                });
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return DoubleTextFieldDialog(
+                        title: "INPUT MANUAL DIPPING",
+                        inputTypeOne: TextInputType.text,
+                        inputTypeTwo:
+                            TextInputType.numberWithOptions(decimal: true),
+                        labelOne: "Truck Plate Number",
+                        labelTwo: "Opening Dip",
+                        function: dataFormTankFillDialog,
+                      );
+                    });
               },
               child: Column(
                 children: <Widget>[
@@ -305,10 +362,11 @@ class _TankDetailsState extends State<TankDetails> {
                       ),
                     ],
                   ),
-                  Text("Start Fill",style: TextStyle(
-                    color: CustomColors.REMIS_PURPLE,
-                    fontSize: 12
-                  ),)
+                  Text(
+                    "Start Fill",
+                    style: TextStyle(
+                        color: CustomColors.REMIS_PURPLE, fontSize: 12),
+                  )
                 ],
               ),
             ),

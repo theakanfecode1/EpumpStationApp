@@ -15,6 +15,9 @@ abstract class _MaintenanceRequestStore with Store{
   @observable
   List<String> properties = [];
 
+  @observable
+  String imageString = "";
+
   @action
   Future<String> getMaintenanceRequest() async {
     requests = [];
@@ -106,6 +109,7 @@ abstract class _MaintenanceRequestStore with Store{
 
     switch(response["statusCode"]){
       case 200:
+        imageString = response["object"];
         return NetworkStrings.SUCCESSFUL;
         break;
       case 401:

@@ -265,7 +265,7 @@ class _ShiftsState extends State<Shifts> {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          ShiftBankDeposit()));
+                                          ShiftBankDeposit(shiftId: shiftStore.shifts[index].id,)));
                                 },
                                 title: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:epump/utils/branch/bank.dart';
 import 'package:epump/utils/branch/bankaccount.dart';
 import 'package:epump/utils/branch/bankdeposit.dart';
+import 'package:http_parser/http_parser.dart';
+
 import 'package:epump/utils/branch/banktransaction.dart';
 import 'package:epump/utils/branch/branchwallet.dart';
 import 'package:epump/utils/branch/expense.dart';
@@ -64,9 +66,10 @@ class NetworkRequest {
         PASSWORD = password;
         Map body = jsonDecode(response.body);
         AccountLogin accountLogin = AccountLogin.fromJson(body);
-        header[HttpHeaders.authorizationHeader] = "Bearer " + accountLogin.token;
+        header[HttpHeaders.authorizationHeader] =
+            "Bearer " + accountLogin.token;
         sharedPreferences.setString("PASSWORD", password);
-        sharedPreferences.setString("TOKEN", "Bearer " +accountLogin.token);
+        sharedPreferences.setString("TOKEN", "Bearer " + accountLogin.token);
         sharedPreferences.setString("FIRST_NAME", accountLogin.firstName);
         sharedPreferences.setString("LAST_NAME", accountLogin.lastName);
         sharedPreferences.setString("ROLE", accountLogin.role);
@@ -184,9 +187,9 @@ class NetworkRequest {
   static Future<dynamic> getProductPrice() async {
     try {
       http.Response response = await http.get(
-        EPUMP_COMPANY + "ProductPrices/" + (COMPANYID == ""
-            ? BRANCHID
-            : COMPANYID),
+        EPUMP_COMPANY +
+            "ProductPrices/" +
+            (COMPANYID == "" ? BRANCHID : COMPANYID),
         headers: header,
       );
       dynamic responseStatus = _checkResponseStatusCode(response);
@@ -209,7 +212,7 @@ class NetworkRequest {
       http.Response response = await http.post(EPUMP_COMPANY + "UpdatePrice",
           headers: header,
           body: jsonEncode(<String, dynamic>{
-            "branchId": (BRANCHID == ""?null:BRANCHID),
+            "branchId": (BRANCHID == "" ? null : BRANCHID),
             "id": id.toString(),
             "productId": productId,
             "price": price,
@@ -224,25 +227,19 @@ class NetworkRequest {
 
 //  ------------------------------------------BRANCH REQUESTS------------------------------------------------------------------
 
-  static Future<dynamic> resolveRequest(String id,dynamic amount) async {
+  static Future<dynamic> resolveRequest(String id, dynamic amount) async {
     try {
-      http.Response response = await http.post(
-        EPUMP_BRANCH +
-            "ResolveRequest",
-        body: jsonEncode(<String,dynamic>{
-          "id":id,
-          "amount":amount
-        }),
+      http.Response response = await http.put(
+        EPUMP_BRANCH + "ResolveRequest",
+        body: jsonEncode(
+            <String, dynamic>{"id": id, "amount": amount, "comment": ""}),
         headers: header,
       );
       dynamic responseStatus = _checkResponseStatusCode(response);
       if (responseStatus["statusCode"] != 200) {
         return responseStatus;
       } else {
-        List<dynamic> body = jsonDecode(response.body);
-        List<PosAndVoucherSales> posVoucherSales =
-        body.map((e) => PosAndVoucherSales.fromJson(e)).toList();
-        return {"statusCode": 200, "object": posVoucherSales};
+        return {"statusCode": 200, "object": null};
       }
     } on SocketException {
       return {"statusCode": 600, "object": null};
@@ -331,24 +328,24 @@ class NetworkRequest {
   }
 
   static Future<dynamic> postImage(filename) async {
+    String imageString;
     try {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(EPUMP_BRANCH + "RequestImage"),
       );
-      request.files.add(await http.MultipartFile.fromPath('picture', filename));
+      request.files.add(await http.MultipartFile.fromPath("picture", filename,
+          contentType: MediaType("image", "jpg")));
       request.headers[HttpHeaders.authorizationHeader] =
           header["authorization"];
-      request.headers[HttpHeaders.contentTypeHeader] = "multipart/form-data";
 
       var res = await request.send();
-      print(res.statusCode);
-      print(res.reasonPhrase);
+      res.stream.transform(utf8.decoder).listen((value) {
+        imageString = value;
+      });
       switch (res.statusCode) {
         case 200:
-          return {
-            "statusCode": 200,
-          };
+          return {"statusCode": 200, "object": imageString};
         case 401:
           return {"statusCode": 401, "object": null};
         case 400:
@@ -363,21 +360,7 @@ class NetworkRequest {
     } on SocketException {
       return {"statusCode": 600, "object": null};
     }
-//  var request = multipart.MultipartRequest();
-//  request.setUrl(EPUMP_BRANCH + "RequestImage");
-//  request.addHeader(HttpHeaders.authorizationHeader, header["authorization"]);
-//  request.addFile("image",filename);
-//  multipart.Response response = request.send();
-//  response.onError = (error){
-//    print(error);
-//    return {"statusCode": 500};
-//
-//  };
-//  response.onComplete = (response){
-//    print(response);
-//    return {"statusCode": 200};
-//
-//  };
+
   }
 
   static Future<dynamic> postRecordPumpTransaction(
@@ -443,8 +426,6 @@ class NetworkRequest {
       return {"statusCode": 600, "object": null};
     }
   }
-
-
 
   static Future<dynamic> getPumpTransactions(
       String pumpId, String startDate, String endDate, bool eSales) async {
@@ -694,16 +675,29 @@ class NetworkRequest {
 
   static Future<dynamic> postShiftDeposit(dynamic amount, String account,
       String tellerNumber, String shiftId) async {
+     Map map = {
+      "branchId": BRANCHID,
+      "shiftId": shiftId,
+      "amount": amount,
+      "bank": account,
+      "teller_Number": tellerNumber
+    };
+     print(map);
     try {
-      http.Response response = await http.post(EPUMP_BRANCH + "ShiftDeposit",
-          headers: header,
-          body: jsonEncode(<String, dynamic>{
-            "shiftId": shiftId,
-            "amount": amount,
-            "bankName": account,
-            "teller_Number": tellerNumber
-          }));
+      http.Response response =
+          await http.post(EPUMP_BRANCH + "MakeShiftDeposit",
+              headers: header,
+              body: jsonEncode(<String, dynamic>{
+                "branchId": BRANCHID,
+                "shiftId": shiftId,
+                "amount": amount,
+                "bank": account,
+                "teller_Number": tellerNumber
+              }));
+
+
       print(response.statusCode);
+      print(response.body);
       dynamic responseStatus = _checkResponseStatusCode(response);
       return responseStatus;
     } on SocketException {
@@ -723,6 +717,7 @@ class NetworkRequest {
             "typeName": typeName,
             "ImageString": imageString
           }));
+      print(response.reasonPhrase);
       dynamic responseStatus = _checkResponseStatusCode(response);
       return responseStatus;
     } on SocketException {
@@ -752,7 +747,9 @@ class NetworkRequest {
   static Future<dynamic> getMaintenanceRequest() async {
     try {
       http.Response response = await http.get(
-        EPUMP_BRANCH + "MaintenanceRequests/" + (COMPANYID == ""?BRANCHID:COMPANYID),
+        EPUMP_BRANCH +
+            "MaintenanceRequests/" +
+            (COMPANYID == "" ? BRANCHID : COMPANYID),
         headers: header,
       );
       dynamic responseStatus = _checkResponseStatusCode(response);
@@ -908,6 +905,7 @@ class NetworkRequest {
         EPUMP_STAFF + "BranchStaff/" + BRANCHID,
         headers: header,
       );
+      print(response.body);
       dynamic responseStatus = _checkResponseStatusCode(response);
       if (responseStatus["statusCode"] != 200) {
         return responseStatus;
@@ -1014,6 +1012,8 @@ class NetworkRequest {
           "branchId": BRANCHID,
         }),
       );
+      print(response.statusCode);
+      print(response.body);
       dynamic responseStatus = _checkResponseStatusCode(response);
       return responseStatus;
     } on SocketException {

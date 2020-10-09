@@ -325,20 +325,33 @@ class _AddMaintenanceState extends State<AddMaintenance> {
                   setState(() {
                     _imageFile = File(pickedFile.path);
                   });
-                  if(_imageFile != null){
-                    Navigator.of(context).push(LoadingWidget.showLoadingScreen("Uploading Image"));
-                    String result = await maintenanceStore.uploadImage(_imageFile.path);
+                  if(_imageFile != null) {
+                    Navigator.of(context).push(
+                        LoadingWidget.showLoadingScreen("Uploading Image"));
+                    String result = await maintenanceStore.uploadImage(
+                        _imageFile.path);
                     Navigator.of(context).pop();
-                    showDialog(context: context,builder: (_){
-                      return StructuredDialog(
-                        giveRadius: true,
-                        child: FeedbackWidget(
-                          title: "Feedback",
-                          status: false,
-                          message: result,
-                        ),
-                      );
-                    });
+                    if (result == NetworkStrings.SUCCESSFUL) {
+                      showDialog(context: context, builder: (_) {
+                        return StructuredDialog(
+                          giveRadius: true,
+                          child: FeedbackWidget(
+                            title: "Success",
+                            status: true,
+                            message: "Image Uploaded",
+                          ),);
+                      });
+                    } else {
+                      showDialog(context: context, builder: (_) {
+                        return StructuredDialog(
+                          giveRadius: true,
+                          child: FeedbackWidget(
+                            title: "Error",
+                            status: false,
+                            message: result,
+                          ),);
+                      });
+                    }
                   }
                 },
                 child: Column(
@@ -413,67 +426,69 @@ class _AddMaintenanceState extends State<AddMaintenance> {
                   height: 60,
                   width: MediaQuery.of(context).size.width,
                   child: RaisedButton(
-                    onPressed: () async {
-                      Navigator.of(context).push(LoadingWidget.showLoadingScreen("Recording Maintenance Request"));
-                      if(_requestTypeController.text.isNotEmpty && _typeNameController.text.isNotEmpty){
-                        String result =
-                        await maintenanceStore.submitMaintenanceRequest(
-                            _descriptionController.text,
-                            _requestTypeController.text,
-                            _requestTypeController.text.toLowerCase() ==
-                                "canopy"
-                                ? "Canopy"
-                                : _typeNameController.text,
-                            "");
-                        Navigator.of(context).pop();
-                        if(result == NetworkStrings.SUCCESSFUL){
-                          await showDialog(context: context,builder: (_){
-                            return StructuredDialog(
-                              giveRadius: true,
-                              child: FeedbackWidget(
-                                title: "Success",
-                                status: true,
-                                message: "Maintenance request successful added",
-                              ),);
-                          });
-                          Navigator.of(context).pop();
-                        }else{
-                          showDialog(context: context,builder: (_){
-                            return StructuredDialog(
-                              giveRadius: true,
-                              child: FeedbackWidget(
-                                title: "Error",
-                                status: false,
-                                message: result,
-                              ),);
-                          });
-                        }
-                      }else{
-                        showDialog(context: context,builder: (_){
-                          return StructuredDialog(
-                            giveRadius: true,
-                            child: FeedbackWidget(
-                              title: "Invaild",
-                              status: false,
-                              message: "All fields are required",
-                            ),);
-                        });
-                      }
+                      onPressed: () async {
+                          Navigator.of(context).push(LoadingWidget.showLoadingScreen("Recording Maintenance Request"));
+                          if(_requestTypeController.text.isNotEmpty && _typeNameController.text.isNotEmpty){
+                            String result =
+                            await maintenanceStore.submitMaintenanceRequest(
+                                _descriptionController.text,
+                                _requestTypeController.text,
+                                _requestTypeController.text.toLowerCase() ==
+                                    "canopy"
+                                    ? "Canopy"
+                                    : _typeNameController.text,
+                                maintenanceStore.imageString);
+                            Navigator.of(context).pop();
+                            if(result == NetworkStrings.SUCCESSFUL){
+                              await showDialog(context: context,builder: (_){
+                                return StructuredDialog(
+                                  giveRadius: true,
+                                  child: FeedbackWidget(
+                                    title: "Success",
+                                    status: true,
+                                    message: "Maintenance request successful added",
+                                  ),);
+                              });
+                              Navigator.of(context).pop();
+                            }else{
+                              showDialog(context: context,builder: (_){
+                                return StructuredDialog(
+                                  giveRadius: true,
+                                  child: FeedbackWidget(
+                                    title: "Error",
+                                    status: false,
+                                    message: result,
+                                  ),);
+                              });
+                            }
+                          }else{
+                            showDialog(context: context,builder: (_){
+                              return StructuredDialog(
+                                giveRadius: true,
+                                child: FeedbackWidget(
+                                  title: "Invaild",
+                                  status: false,
+                                  message: "All fields are required",
+                                ),);
+                            });
+                          }
 
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10))),
-                    color: CustomColors.REMIS_PURPLE,
-                    child: Text(
-                      "SUBMIT",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20),
+
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10))),
+                      color: CustomColors.REMIS_PURPLE,
+                      child: Text(
+                        "SUBMIT",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20),
+                      ),
                     ),
-                  )),
+                  ),
             )
           ],
         ),

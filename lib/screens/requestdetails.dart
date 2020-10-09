@@ -92,13 +92,6 @@ class _RequestDetailsState extends State<RequestDetails> {
           "Request Details",
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.message),
-            onPressed: () {},
-            color: Colors.white,
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 10),
