@@ -66,13 +66,32 @@ class NetworkRequest {
         PASSWORD = password;
         Map body = jsonDecode(response.body);
         AccountLogin accountLogin = AccountLogin.fromJson(body);
+        var role = "";
+        if (accountLogin.role.contains("companyadmin")){
+          role = "companyadmin";
+        }
+        else if (accountLogin.role.contains("sub branch manager")){
+          role = "sub branch manager";
+        }
+        else if (accountLogin.role.contains("branch manager")){
+          role = "branch manager";
+        }
+        else if (accountLogin.role.contains("supervisor")){
+          role = "supervisor";
+        }
+        else if (accountLogin.role.contains("residential")){
+          role = "residential";
+        }
+        else if (accountLogin.role.contains("driver")){
+          role = "driver";
+        }
         header[HttpHeaders.authorizationHeader] =
             "Bearer " + accountLogin.token;
         sharedPreferences.setString("PASSWORD", password);
         sharedPreferences.setString("TOKEN", "Bearer " + accountLogin.token);
         sharedPreferences.setString("FIRST_NAME", accountLogin.firstName);
         sharedPreferences.setString("LAST_NAME", accountLogin.lastName);
-        sharedPreferences.setString("ROLE", accountLogin.role);
+        sharedPreferences.setString("ROLE", role);
         sharedPreferences.setString("EMAIL", accountLogin.email);
         return {"statusCode": 200, "object": accountLogin};
       }

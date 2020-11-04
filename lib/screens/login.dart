@@ -67,8 +67,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     Navigator.of(context).push(LoadingWidget.showLoadingScreen("Signing In"));
     String result = await loginStore.loginUser(username, password);
     if (result == NetworkStrings.SUCCESSFUL) {
-      if (loginStore.loginDetails.role.toLowerCase() == "branchmanager" ||
-          loginStore.loginDetails.role.toLowerCase() == "subbranchmanager" ||
+      if (loginStore.loginDetails.role.toLowerCase() == "branch manager" ||
+          loginStore.loginDetails.role.toLowerCase() == "sub branch manager" ||
           loginStore.loginDetails.role.toLowerCase() == "supervisor") {
         final companyStore =
             Provider.of<CompanyMyBranchesStore>(context, listen: false);
