@@ -34,8 +34,8 @@
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
-        <key>armv7</key>
-        <true/>
+		<key>armv7</key>
+		<true/>
 	</dict>
 	<key>UIStatusBarHidden</key>
 	<true/>

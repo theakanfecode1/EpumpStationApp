@@ -68,13 +68,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     String result = await loginStore.loginUser(username, password);
     if (result == NetworkStrings.SUCCESSFUL) {
       if (loginStore.loginDetails.role.toLowerCase() == "branch manager" ||
-          loginStore.loginDetails.role.toLowerCase() == "sub branch manager" ||
-          loginStore.loginDetails.role.toLowerCase() == "supervisor") {
+          loginStore.loginDetails.role.toLowerCase() == "sub branch manager") {
         final companyStore =
             Provider.of<CompanyMyBranchesStore>(context, listen: false);
         await companyStore.getBranch();
         sharedPreferences.setBool("LOGGED_IN", true);
-        sharedPreferences.setString("LOGGED_IN_AS", "BRANCHMANAGER_SUBBRANCHMANAGER_SUPERVISOR");
+        sharedPreferences.setString("LOGGED_IN_AS", "BRANCHMANAGER_SUBBRANCHMANAGER");
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed("/dashboard");
       } else if (loginStore.loginDetails.role.toLowerCase() == "companyadmin") {
