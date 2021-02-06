@@ -100,7 +100,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             switchButtonColor = false;
           });
         }
-        print("THE RESULT" + result);
       } else {
         Navigator.of(context).pop();
         await showDialog(
@@ -118,7 +117,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 ),
               );
             });
-        Navigator.of(context).pop();
+        setState(() {
+          _width = 0.0;
+          switchButtonColor = false;
+        });
       }
     } else {
       Navigator.of(context).pop();

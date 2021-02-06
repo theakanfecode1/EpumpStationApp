@@ -41,7 +41,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'customwidgets/feedbackwidget.dart';
+import 'customwidgets/structureddialog.dart';
+
 void main() async {
+
+  ErrorWidget.builder = (FlutterErrorDetails details) => StructuredDialog(
+    giveRadius: true,
+    child: FeedbackWidget(
+      title: "Error",
+      status: false,
+      message: "An application error occurred."
+    ),);
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   runApp(MultiProvider(
@@ -120,6 +131,10 @@ String navigateToNext(SharedPreferences sharedPreferences) {
     return "/onboarding";
   }
 }
+
+
+
+
 
 //class MyApp extends StatelessWidget {
 //  // This widget is the root of your application.

@@ -12,6 +12,7 @@ class FeedbackWidget extends StatelessWidget {
 
   FeedbackWidget({this.title, this.status, this.message});
 
+
   @override
   Widget build(BuildContext context) {
     return Container(

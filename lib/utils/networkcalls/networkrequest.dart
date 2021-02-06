@@ -67,24 +67,25 @@ class NetworkRequest {
         Map body = jsonDecode(response.body);
         AccountLogin accountLogin = AccountLogin.fromJson(body);
         var role = "";
-        if (accountLogin.role.contains("companyadmin")){
+        if (accountLogin.role.toLowerCase().contains("companyadmin")){
           role = "companyadmin";
         }
-        else if (accountLogin.role.contains("sub branch manager")){
+        else if (accountLogin.role.toLowerCase().contains("sub branch manager")){
           role = "sub branch manager";
         }
-        else if (accountLogin.role.contains("branch manager")){
+        else if (accountLogin.role.toLowerCase().contains("branch manager")){
           role = "branch manager";
         }
-        else if (accountLogin.role.contains("supervisor")){
+        else if (accountLogin.role.toLowerCase().contains("supervisor")){
           role = "supervisor";
         }
-        else if (accountLogin.role.contains("residential")){
+        else if (accountLogin.role.toLowerCase().contains("residential")){
           role = "residential";
         }
-        else if (accountLogin.role.contains("driver")){
+        else if (accountLogin.role.toLowerCase().contains("driver")){
           role = "driver";
         }
+        accountLogin.role = role;
         header[HttpHeaders.authorizationHeader] =
             "Bearer " + accountLogin.token;
         sharedPreferences.setString("PASSWORD", password);
