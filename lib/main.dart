@@ -68,8 +68,7 @@ void main() async {
         Provider<PumpDetailsStore>(create: (_) => PumpDetailsStore()),
         Provider<ShiftStore>(create: (_) => ShiftStore()),
         Provider<ExpenseStore>(create: (_) => ExpenseStore()),
-        Provider<MaintenanceRequestStore>(
-            create: (_) => MaintenanceRequestStore()),
+        Provider<MaintenanceRequestStore>(create: (_) => MaintenanceRequestStore()),
         Provider<BankAccountStore>(create: (_) => BankAccountStore()),
         Provider<AddBankStore>(create: (_) => AddBankStore()),
         Provider<AddExpenseStore>(create: (_) => AddExpenseStore()),
@@ -131,10 +130,6 @@ String navigateToNext(SharedPreferences sharedPreferences) {
     return "/onboarding";
   }
 }
-
-
-
-
 
 //class MyApp extends StatelessWidget {
 //  // This widget is the root of your application.

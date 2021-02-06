@@ -127,7 +127,6 @@ class _AddExpensesState extends State<AddExpenses> {
                   setState(() {
                     _paymentMethodName = index;
                     _paymentMode.text = index;
-                    print("THE INDEX IS $index");
                   });
                 },
                 itemBuilder: (context) {

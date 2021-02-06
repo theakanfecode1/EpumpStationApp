@@ -72,7 +72,7 @@ class _CompanyDashboardState extends State<CompanyDashboard> {
     today = DateFormat.yMMMd().format(DateTime.now());
 //    year/month/day
     DateTime startOfMonth =
-    DateTime.parse("${DateTime.now().year}-${DateTime.now().month.toString().length == 2 ?DateTime.now().month : "0${DateTime.now()}"}-01");
+    DateTime.parse("${DateTime.now().year}-${DateTime.now().month.toString().length == 2 ?DateTime.now().month : "0${DateTime.now().month}"}-01");
     thisMonth = DateFormat.yMMMd().format(startOfMonth);
     var tempYesterday = DateTime.now().subtract(Duration(days: 1));
     yesterday = DateFormat.yMMMd().format(tempYesterday);
