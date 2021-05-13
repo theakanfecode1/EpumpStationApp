@@ -49,7 +49,7 @@ class _MaintenanceState extends State<Maintenance> {
           itemCount: requestStore.requests.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context) => RequestDetails(request:requestStore.requests[index] ,))),
+              onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => RequestDetails(request:requestStore.requests[index] ,))),
               child: CustomListCard(
                 type: requestStore.requests[index].type,
                 typeName: requestStore.requests[index].typeName,

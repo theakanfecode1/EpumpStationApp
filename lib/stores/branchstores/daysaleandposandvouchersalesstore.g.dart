@@ -54,6 +54,21 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
     });
   }
 
+  final _$lpgAtom = Atom(name: '_DaySaleAndPosStore.lpg');
+
+  @override
+  dynamic get lpg {
+    _$lpgAtom.reportRead();
+    return super.lpg;
+  }
+
+  @override
+  set lpg(dynamic value) {
+    _$lpgAtom.reportWrite(value, super.lpg, () {
+      super.lpg = value;
+    });
+  }
+
   final _$rttAtom = Atom(name: '_DaySaleAndPosStore.rtt');
 
   @override
@@ -129,6 +144,21 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
     });
   }
 
+  final _$todayLpgAmountAtom = Atom(name: '_DaySaleAndPosStore.todayLpgAmount');
+
+  @override
+  dynamic get todayLpgAmount {
+    _$todayLpgAmountAtom.reportRead();
+    return super.todayLpgAmount;
+  }
+
+  @override
+  set todayLpgAmount(dynamic value) {
+    _$todayLpgAmountAtom.reportWrite(value, super.todayLpgAmount, () {
+      super.todayLpgAmount = value;
+    });
+  }
+
   final _$yesterdayPmsAmountAtom =
       Atom(name: '_DaySaleAndPosStore.yesterdayPmsAmount');
 
@@ -177,6 +207,22 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
     });
   }
 
+  final _$yesterdayLpgAmountAtom =
+      Atom(name: '_DaySaleAndPosStore.yesterdayLpgAmount');
+
+  @override
+  dynamic get yesterdayLpgAmount {
+    _$yesterdayLpgAmountAtom.reportRead();
+    return super.yesterdayLpgAmount;
+  }
+
+  @override
+  set yesterdayLpgAmount(dynamic value) {
+    _$yesterdayLpgAmountAtom.reportWrite(value, super.yesterdayLpgAmount, () {
+      super.yesterdayLpgAmount = value;
+    });
+  }
+
   final _$monthPmsAmountAtom = Atom(name: '_DaySaleAndPosStore.monthPmsAmount');
 
   @override
@@ -222,6 +268,21 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
     });
   }
 
+  final _$monthLpgAmountAtom = Atom(name: '_DaySaleAndPosStore.monthLpgAmount');
+
+  @override
+  dynamic get monthLpgAmount {
+    _$monthLpgAmountAtom.reportRead();
+    return super.monthLpgAmount;
+  }
+
+  @override
+  set monthLpgAmount(dynamic value) {
+    _$monthLpgAmountAtom.reportWrite(value, super.monthLpgAmount, () {
+      super.monthLpgAmount = value;
+    });
+  }
+
   final _$todayPmsVolumeAtom = Atom(name: '_DaySaleAndPosStore.todayPmsVolume');
 
   @override
@@ -264,6 +325,21 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
   set todayDpkVolume(dynamic value) {
     _$todayDpkVolumeAtom.reportWrite(value, super.todayDpkVolume, () {
       super.todayDpkVolume = value;
+    });
+  }
+
+  final _$todayLpgVolumeAtom = Atom(name: '_DaySaleAndPosStore.todayLpgVolume');
+
+  @override
+  dynamic get todayLpgVolume {
+    _$todayLpgVolumeAtom.reportRead();
+    return super.todayLpgVolume;
+  }
+
+  @override
+  set todayLpgVolume(dynamic value) {
+    _$todayLpgVolumeAtom.reportWrite(value, super.todayLpgVolume, () {
+      super.todayLpgVolume = value;
     });
   }
 
@@ -315,6 +391,22 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
     });
   }
 
+  final _$yesterdayLpgVolumeAtom =
+      Atom(name: '_DaySaleAndPosStore.yesterdayLpgVolume');
+
+  @override
+  dynamic get yesterdayLpgVolume {
+    _$yesterdayLpgVolumeAtom.reportRead();
+    return super.yesterdayLpgVolume;
+  }
+
+  @override
+  set yesterdayLpgVolume(dynamic value) {
+    _$yesterdayLpgVolumeAtom.reportWrite(value, super.yesterdayLpgVolume, () {
+      super.yesterdayLpgVolume = value;
+    });
+  }
+
   final _$monthPmsVolumeAtom = Atom(name: '_DaySaleAndPosStore.monthPmsVolume');
 
   @override
@@ -357,6 +449,21 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
   set monthDpkVolume(dynamic value) {
     _$monthDpkVolumeAtom.reportWrite(value, super.monthDpkVolume, () {
       super.monthDpkVolume = value;
+    });
+  }
+
+  final _$monthLpgVolumeAtom = Atom(name: '_DaySaleAndPosStore.monthLpgVolume');
+
+  @override
+  dynamic get monthLpgVolume {
+    _$monthLpgVolumeAtom.reportRead();
+    return super.monthLpgVolume;
+  }
+
+  @override
+  set monthLpgVolume(dynamic value) {
+    _$monthLpgVolumeAtom.reportWrite(value, super.monthLpgVolume, () {
+      super.monthLpgVolume = value;
     });
   }
 
@@ -464,26 +571,33 @@ mixin _$DaySaleAndPosStore on _DaySaleAndPosStore, Store {
 pms: ${pms},
 ago: ${ago},
 dpk: ${dpk},
+lpg: ${lpg},
 rtt: ${rtt},
 cashToBank: ${cashToBank},
 todayPmsAmount: ${todayPmsAmount},
 todayAgoAmount: ${todayAgoAmount},
 todayDpkAmount: ${todayDpkAmount},
+todayLpgAmount: ${todayLpgAmount},
 yesterdayPmsAmount: ${yesterdayPmsAmount},
 yesterdayAgoAmount: ${yesterdayAgoAmount},
 yesterdayDpkAmount: ${yesterdayDpkAmount},
+yesterdayLpgAmount: ${yesterdayLpgAmount},
 monthPmsAmount: ${monthPmsAmount},
 monthAgoAmount: ${monthAgoAmount},
 monthDpkAmount: ${monthDpkAmount},
+monthLpgAmount: ${monthLpgAmount},
 todayPmsVolume: ${todayPmsVolume},
 todayAgoVolume: ${todayAgoVolume},
 todayDpkVolume: ${todayDpkVolume},
+todayLpgVolume: ${todayLpgVolume},
 yesterdayPmsVolume: ${yesterdayPmsVolume},
 yesterdayAgoVolume: ${yesterdayAgoVolume},
 yesterdayDpkVolume: ${yesterdayDpkVolume},
+yesterdayLpgVolume: ${yesterdayLpgVolume},
 monthPmsVolume: ${monthPmsVolume},
 monthAgoVolume: ${monthAgoVolume},
 monthDpkVolume: ${monthDpkVolume},
+monthLpgVolume: ${monthLpgVolume},
 totalSales: ${totalSales},
 retainershipSales: ${retainershipSales},
 epumpSales: ${epumpSales},

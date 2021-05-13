@@ -217,6 +217,8 @@ class _DashboardState extends State<Dashboard> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
+                            SizedBox(width: 5,),
+
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -272,6 +274,7 @@ class _DashboardState extends State<Dashboard> {
                                 ],
                               ),
                             ),
+                            SizedBox(width: 3,),
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -326,6 +329,8 @@ class _DashboardState extends State<Dashboard> {
                                 ],
                               ),
                             ),
+                            SizedBox(width: 3,),
+
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -359,7 +364,7 @@ class _DashboardState extends State<Dashboard> {
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 13),
+                                              fontSize: 15),
                                           textAlign: TextAlign.center,
                                         ),
                                       ),
@@ -380,6 +385,65 @@ class _DashboardState extends State<Dashboard> {
                                 ],
                               ),
                             ),
+                            SizedBox(width: 3,),
+
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SvgPicture.asset(
+                                    Constants.getAssetGeneralName(
+                                        "dropdash", "svg"),
+                                    color: CustomColors.REMIS_DARK_PURPLE,
+                                    width: 25,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "LPG",
+                                    style: TextStyle(
+                                        color: CustomColors.REMIS_DARK_PURPLE,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Observer(
+                                    builder: (_) => SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(
+                                          Constants.formatThisInput(branchStore.lpg),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "Litres",
+                                    style: TextStyle(
+                                      color: CustomColors.REMIS_GREY,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 5,),
+
+
                           ],
                         ),
                       ),

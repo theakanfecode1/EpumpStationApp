@@ -8,10 +8,11 @@ class MyBranches{
   dynamic pmsTotalVolume;
   dynamic agoTotalVolume;
   dynamic dpkTotalVolume;
+  dynamic lpgTotalVolume;
 
 
   MyBranches({this.branchId, this.name, this.city, this.state, this.street,
-      this.pmsTotalVolume, this.agoTotalVolume, this.dpkTotalVolume});
+      this.pmsTotalVolume, this.agoTotalVolume, this.dpkTotalVolume,this.lpgTotalVolume});
 
   factory MyBranches.fromJson(Map<String,dynamic> json){
     return MyBranches(
@@ -23,6 +24,8 @@ class MyBranches{
       pmsTotalVolume:  json["pmsTotalVolume"]==null?0.00:json["pmsTotalVolume"],
       agoTotalVolume:  json["agoTotalVolume"]==null?0.00:json["agoTotalVolume"],
       dpkTotalVolume:  json["dpkTotalVolume"]==null?0.00:json["dpkTotalVolume"],
+      lpgTotalVolume:  json["lpgTotalVolume"]==null?0.00:json["lpgTotalVolume"],
+
 
     );
   }

@@ -69,6 +69,21 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
     });
   }
 
+  final _$todayLpgAmountAtom = Atom(name: '_CompanySalesStore.todayLpgAmount');
+
+  @override
+  dynamic get todayLpgAmount {
+    _$todayLpgAmountAtom.reportRead();
+    return super.todayLpgAmount;
+  }
+
+  @override
+  set todayLpgAmount(dynamic value) {
+    _$todayLpgAmountAtom.reportWrite(value, super.todayLpgAmount, () {
+      super.todayLpgAmount = value;
+    });
+  }
+
   final _$yesterdayPmsAmountAtom =
       Atom(name: '_CompanySalesStore.yesterdayPmsAmount');
 
@@ -117,6 +132,22 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
     });
   }
 
+  final _$yesterdayLpgAmountAtom =
+      Atom(name: '_CompanySalesStore.yesterdayLpgAmount');
+
+  @override
+  dynamic get yesterdayLpgAmount {
+    _$yesterdayLpgAmountAtom.reportRead();
+    return super.yesterdayLpgAmount;
+  }
+
+  @override
+  set yesterdayLpgAmount(dynamic value) {
+    _$yesterdayLpgAmountAtom.reportWrite(value, super.yesterdayLpgAmount, () {
+      super.yesterdayLpgAmount = value;
+    });
+  }
+
   final _$monthPmsAmountAtom = Atom(name: '_CompanySalesStore.monthPmsAmount');
 
   @override
@@ -162,6 +193,21 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
     });
   }
 
+  final _$monthLpgAmountAtom = Atom(name: '_CompanySalesStore.monthLpgAmount');
+
+  @override
+  dynamic get monthLpgAmount {
+    _$monthLpgAmountAtom.reportRead();
+    return super.monthLpgAmount;
+  }
+
+  @override
+  set monthLpgAmount(dynamic value) {
+    _$monthLpgAmountAtom.reportWrite(value, super.monthLpgAmount, () {
+      super.monthLpgAmount = value;
+    });
+  }
+
   final _$todayPmsVolumeAtom = Atom(name: '_CompanySalesStore.todayPmsVolume');
 
   @override
@@ -204,6 +250,21 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
   set todayDpkVolume(dynamic value) {
     _$todayDpkVolumeAtom.reportWrite(value, super.todayDpkVolume, () {
       super.todayDpkVolume = value;
+    });
+  }
+
+  final _$todayLpgVolumeAtom = Atom(name: '_CompanySalesStore.todayLpgVolume');
+
+  @override
+  dynamic get todayLpgVolume {
+    _$todayLpgVolumeAtom.reportRead();
+    return super.todayLpgVolume;
+  }
+
+  @override
+  set todayLpgVolume(dynamic value) {
+    _$todayLpgVolumeAtom.reportWrite(value, super.todayLpgVolume, () {
+      super.todayLpgVolume = value;
     });
   }
 
@@ -255,6 +316,22 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
     });
   }
 
+  final _$yesterdayLpgVolumeAtom =
+      Atom(name: '_CompanySalesStore.yesterdayLpgVolume');
+
+  @override
+  dynamic get yesterdayLpgVolume {
+    _$yesterdayLpgVolumeAtom.reportRead();
+    return super.yesterdayLpgVolume;
+  }
+
+  @override
+  set yesterdayLpgVolume(dynamic value) {
+    _$yesterdayLpgVolumeAtom.reportWrite(value, super.yesterdayLpgVolume, () {
+      super.yesterdayLpgVolume = value;
+    });
+  }
+
   final _$monthPmsVolumeAtom = Atom(name: '_CompanySalesStore.monthPmsVolume');
 
   @override
@@ -300,6 +377,21 @@ mixin _$CompanySalesStore on _CompanySalesStore, Store {
     });
   }
 
+  final _$monthLpgVolumeAtom = Atom(name: '_CompanySalesStore.monthLpgVolume');
+
+  @override
+  dynamic get monthLpgVolume {
+    _$monthLpgVolumeAtom.reportRead();
+    return super.monthLpgVolume;
+  }
+
+  @override
+  set monthLpgVolume(dynamic value) {
+    _$monthLpgVolumeAtom.reportWrite(value, super.monthLpgVolume, () {
+      super.monthLpgVolume = value;
+    });
+  }
+
   final _$getCompanySalesAsyncAction =
       AsyncAction('_CompanySalesStore.getCompanySales');
 
@@ -339,21 +431,27 @@ branches: ${branches},
 todayPmsAmount: ${todayPmsAmount},
 todayAgoAmount: ${todayAgoAmount},
 todayDpkAmount: ${todayDpkAmount},
+todayLpgAmount: ${todayLpgAmount},
 yesterdayPmsAmount: ${yesterdayPmsAmount},
 yesterdayAgoAmount: ${yesterdayAgoAmount},
 yesterdayDpkAmount: ${yesterdayDpkAmount},
+yesterdayLpgAmount: ${yesterdayLpgAmount},
 monthPmsAmount: ${monthPmsAmount},
 monthAgoAmount: ${monthAgoAmount},
 monthDpkAmount: ${monthDpkAmount},
+monthLpgAmount: ${monthLpgAmount},
 todayPmsVolume: ${todayPmsVolume},
 todayAgoVolume: ${todayAgoVolume},
 todayDpkVolume: ${todayDpkVolume},
+todayLpgVolume: ${todayLpgVolume},
 yesterdayPmsVolume: ${yesterdayPmsVolume},
 yesterdayAgoVolume: ${yesterdayAgoVolume},
 yesterdayDpkVolume: ${yesterdayDpkVolume},
+yesterdayLpgVolume: ${yesterdayLpgVolume},
 monthPmsVolume: ${monthPmsVolume},
 monthAgoVolume: ${monthAgoVolume},
-monthDpkVolume: ${monthDpkVolume}
+monthDpkVolume: ${monthDpkVolume},
+monthLpgVolume: ${monthLpgVolume}
     ''';
   }
 }

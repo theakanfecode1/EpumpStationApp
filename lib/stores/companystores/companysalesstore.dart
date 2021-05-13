@@ -27,6 +27,9 @@ abstract class _CompanySalesStore with Store {
   dynamic todayDpkAmount = 0.00;
 
   @observable
+  dynamic todayLpgAmount = 0.00;
+
+  @observable
   dynamic yesterdayPmsAmount = 0.00;
 
   @observable
@@ -34,6 +37,9 @@ abstract class _CompanySalesStore with Store {
 
   @observable
   dynamic yesterdayDpkAmount = 0.00;
+
+  @observable
+  dynamic yesterdayLpgAmount = 0.00;
 
   @observable
   dynamic monthPmsAmount = 0.00;
@@ -45,6 +51,9 @@ abstract class _CompanySalesStore with Store {
   dynamic monthDpkAmount = 0.00;
 
   @observable
+  dynamic monthLpgAmount = 0.00;
+
+  @observable
   dynamic todayPmsVolume = 0.00;
 
   @observable
@@ -52,6 +61,10 @@ abstract class _CompanySalesStore with Store {
 
   @observable
   dynamic todayDpkVolume = 0.00;
+
+
+  @observable
+  dynamic todayLpgVolume = 0.00;
 
   @observable
   dynamic yesterdayPmsVolume = 0.00;
@@ -63,6 +76,9 @@ abstract class _CompanySalesStore with Store {
   dynamic yesterdayDpkVolume = 0.00;
 
   @observable
+  dynamic yesterdayLpgVolume = 0.00;
+
+  @observable
   dynamic monthPmsVolume = 0.00;
 
   @observable
@@ -70,6 +86,9 @@ abstract class _CompanySalesStore with Store {
 
   @observable
   dynamic monthDpkVolume = 0.00;
+
+  @observable
+  dynamic monthLpgVolume = 0.00;
 
 
 
@@ -83,8 +102,11 @@ abstract class _CompanySalesStore with Store {
 
     }else if(sortBy == "DPK"){
       temp.sort((b,a) => a.dpkTotalVolume.compareTo(b.dpkTotalVolume));
-    }else{
+    }else if(sortBy == "PMS"){
       temp.sort((b,a) => a.agoTotalVolume.compareTo(b.agoTotalVolume));
+    }
+    else if(sortBy == "LPG"){
+      temp.sort((b,a) => a.lpgTotalVolume.compareTo(b.lpgTotalVolume));
     }
     branches = temp;
   }
@@ -92,74 +114,101 @@ abstract class _CompanySalesStore with Store {
   @action
   Future<String> getCompanySales(
       String typeOfRequest, String startDate, String endDate) async {
+    monthAgoAmount=0;
+    monthDpkAmount=0;
+    monthPmsAmount=0;
+    monthLpgAmount=0;
+    monthAgoVolume=0;
+    monthDpkVolume=0;
+    monthPmsVolume=0;
+    monthLpgVolume=0;
+    todayAgoAmount=0;
+    todayDpkAmount=0;
+    todayPmsAmount=0;
+    todayLpgAmount=0;
+    todayAgoVolume=0;
+    todayDpkVolume=0;
+    todayPmsVolume=0;
+    todayLpgVolume=0;
+    yesterdayAgoAmount=0;
+    yesterdayDpkAmount=0;
+    yesterdayPmsAmount=0;
+    yesterdayLpgAmount=0;
+    yesterdayAgoVolume=0;
+    yesterdayDpkVolume=0;
+    yesterdayPmsVolume=0;
+    yesterdayLpgVolume=0;
     dynamic response = await NetworkRequest.getCompanySales(startDate, endDate);
 
     switch (response["statusCode"]) {
       case 200:
         switch (typeOfRequest) {
           case Strings.MONTH_REQUEST:
-            monthAgoAmount = 0;
-            monthDpkAmount = 0;
-            monthPmsAmount = 0;
-            monthAgoVolume = 0;
-            monthDpkVolume = 0;
-            monthPmsVolume = 0;
+
             List<DaySale> daySales = response["object"];
             daySales.forEach((daySale) {
-              if (daySale.product == "AGO") {
-                monthAgoAmount += daySale.amount;
-                monthAgoVolume += daySale.volume;
-              } else if (daySale.product == "DPK") {
-                monthDpkAmount += daySale.amount;
-                monthDpkVolume += daySale.volume;
-              } else {
-                monthPmsAmount += daySale.amount;
-                monthPmsVolume += daySale.volume;
+              if(daySale.product == "AGO"){
+                monthAgoAmount+=daySale.amount;
+                monthAgoVolume+=daySale.volume;
               }
+              else if(daySale.product == "DPK"){
+                monthDpkAmount+=daySale.amount;
+                monthDpkVolume+=daySale.volume;
+              }
+              else if(daySale.product == "PMS"){
+                monthPmsAmount+=daySale.amount;
+                monthPmsVolume+=daySale.volume;
+              }else if(daySale.product == "LPG"){
+                monthLpgAmount+=daySale.amount;
+                monthLpgVolume+=daySale.volume;
+              }else{}
             });
             break;
 
           case Strings.TODAY_REQUEST:
-            todayAgoAmount = 0;
-            todayDpkAmount = 0;
-            todayPmsAmount = 0;
-            todayAgoVolume = 0;
-            todayDpkVolume = 0;
-            todayPmsVolume = 0;
+
             List<DaySale> daySales = response["object"];
             daySales.forEach((daySale) {
-              if (daySale.product == "AGO") {
-                todayAgoAmount += daySale.amount;
-                todayAgoVolume += daySale.volume;
-              } else if (daySale.product == "DPK") {
-                todayDpkAmount += daySale.amount;
-                todayDpkVolume += daySale.volume;
-              } else {
-                todayPmsAmount += daySale.amount;
-                todayPmsVolume += daySale.volume;
+              if(daySale.product == "AGO"){
+                todayAgoAmount+=daySale.amount;
+                todayAgoVolume+=daySale.volume;
               }
+              else if(daySale.product == "DPK"){
+                todayDpkAmount+=daySale.amount;
+                todayDpkVolume+=daySale.volume;
+              }
+              else if(daySale.product == "PMS"){
+                todayPmsAmount+=daySale.amount;
+                todayPmsVolume+=daySale.volume;
+
+              }else if(daySale.product == "LPG"){
+                todayLpgAmount+=daySale.amount;
+                todayLpgVolume+=daySale.volume;
+
+              }else{}
             });
             break;
 
           case Strings.YESTERDAY_REQUEST:
-            yesterdayAgoAmount = 0;
-            yesterdayDpkAmount = 0;
-            yesterdayPmsAmount = 0;
-            yesterdayAgoVolume = 0;
-            yesterdayDpkVolume = 0;
-            yesterdayPmsVolume = 0;
+
             List<DaySale> daySales = response["object"];
             daySales.forEach((daySale) {
-              if (daySale.product == "AGO") {
-                yesterdayAgoAmount += daySale.amount;
-                yesterdayAgoVolume += daySale.volume;
-              } else if (daySale.product == "DPK") {
-                yesterdayDpkAmount += daySale.amount;
-                yesterdayDpkVolume += daySale.volume;
-              } else {
-                yesterdayPmsAmount += daySale.amount;
-                yesterdayPmsVolume += daySale.volume;
+              if(daySale.product == "AGO"){
+                yesterdayAgoAmount+=daySale.amount;
+                yesterdayAgoVolume+=daySale.volume;
               }
+              else if(daySale.product == "DPK"){
+                yesterdayDpkAmount+=daySale.amount;
+                yesterdayDpkVolume+=daySale.volume;
+              }
+              else if(daySale.product == "PMS"){
+                yesterdayPmsAmount+=daySale.amount;
+                yesterdayPmsVolume+=daySale.volume;
+              }
+              else if(daySale.product == "LPG"){
+                yesterdayLpgAmount+=daySale.amount;
+                yesterdayLpgVolume+=daySale.volume;
+              }else{}
             });
             break;
         }

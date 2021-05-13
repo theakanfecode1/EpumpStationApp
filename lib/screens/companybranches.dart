@@ -140,8 +140,10 @@ class _CompanyBranchesState extends State<CompanyBranches> {
                       companyStore.sortBranches("PMS");
                     } else if (value == "DPK") {
                       companyStore.sortBranches("DPK");
-                    } else {
+                    } else if(value == "AGO") {
                       companyStore.sortBranches("AGO");
+                    }else if(value == "LPG") {
+                      companyStore.sortBranches("LPG");
                     }
                     // setState(() {
                     // });
@@ -177,6 +179,17 @@ class _CompanyBranchesState extends State<CompanyBranches> {
                           width: MediaQuery.of(context).size.width,
                           child: Text(
                             "Sort By PMS Volume",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )),
+                    PopupMenuItem(
+                        value: "LPG",
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Text(
+                            "Sort By LPG Volume",
                             style: TextStyle(
                               color: Colors.white,
                             ),

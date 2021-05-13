@@ -39,6 +39,21 @@ mixin _$MaintenanceRequestStore on _MaintenanceRequestStore, Store {
     });
   }
 
+  final _$imageStringAtom = Atom(name: '_MaintenanceRequestStore.imageString');
+
+  @override
+  String get imageString {
+    _$imageStringAtom.reportRead();
+    return super.imageString;
+  }
+
+  @override
+  set imageString(String value) {
+    _$imageStringAtom.reportWrite(value, super.imageString, () {
+      super.imageString = value;
+    });
+  }
+
   final _$getMaintenanceRequestAsyncAction =
       AsyncAction('_MaintenanceRequestStore.getMaintenanceRequest');
 
@@ -87,7 +102,8 @@ mixin _$MaintenanceRequestStore on _MaintenanceRequestStore, Store {
   String toString() {
     return '''
 requests: ${requests},
-properties: ${properties}
+properties: ${properties},
+imageString: ${imageString}
     ''';
   }
 }

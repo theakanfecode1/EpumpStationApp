@@ -28,7 +28,8 @@ class _SummaryState extends State<Summary> {
   String headerToday = "Today";
 
   void fetchToday(String startDate,String endDate) async {
-      final daySaleStore =
+
+    final daySaleStore =
       Provider.of<DaySaleAndPosStore>(context, listen: false);
       await daySaleStore.getDaySale(Strings.TODAY_REQUEST, startDate, endDate);
       setState(() {
@@ -51,7 +52,8 @@ class _SummaryState extends State<Summary> {
       });
   }
   void fetchMonth(String startDate,String endDate) async {
-      final daySaleStore =
+
+    final daySaleStore =
       Provider.of<DaySaleAndPosStore>(context, listen: false);
       await daySaleStore.getDaySale(Strings.MONTH_REQUEST, startDate, endDate);
       setState(() {
@@ -164,6 +166,10 @@ class _SummaryState extends State<Summary> {
                           Constants.formatThisInput(daySaleStore.todayAgoAmount),
                           agoVolume:
                           Constants.formatThisInput(daySaleStore.todayAgoVolume),
+                      lpgAmount:
+                      Constants.formatThisInput(daySaleStore.todayLpgAmount),
+                      lpgVolume:
+                      Constants.formatThisInput(daySaleStore.todayLpgVolume),
                         )),
                 if(!dataIsFiltered)
                   Column(
@@ -185,6 +191,10 @@ class _SummaryState extends State<Summary> {
                           Constants.formatThisInput(daySaleStore.yesterdayAgoAmount),
                           agoVolume:
                           Constants.formatThisInput(daySaleStore.yesterdayAgoVolume),
+                          lpgAmount:
+                          Constants.formatThisInput(daySaleStore.yesterdayLpgAmount),
+                          lpgVolume:
+                          Constants.formatThisInput(daySaleStore.yesterdayLpgVolume),
                         ),
                       ),
                       Observer(
@@ -204,6 +214,10 @@ class _SummaryState extends State<Summary> {
                           Constants.formatThisInput(daySaleStore.monthAgoAmount),
                           agoVolume:
                           Constants.formatThisInput(daySaleStore.monthAgoVolume),
+                          lpgAmount:
+                          Constants.formatThisInput(daySaleStore.monthLpgAmount),
+                          lpgVolume:
+                          Constants.formatThisInput(daySaleStore.monthLpgVolume),
                         ),
                       ),
                     ],
@@ -227,6 +241,8 @@ class DetailsCard extends StatelessWidget {
   final String dpkVolume;
   final String agoAmount;
   final String agoVolume;
+  final String lpgAmount;
+  final String lpgVolume;
 
   DetailsCard(
       {this.headerColor,
@@ -237,7 +253,7 @@ class DetailsCard extends StatelessWidget {
         this.dpkAmount,
         this.dpkVolume,
         this.agoAmount,
-        this.agoVolume});
+        this.agoVolume,this.lpgAmount,this.lpgVolume});
 
   @override
   Widget build(BuildContext context) {
@@ -297,6 +313,7 @@ class DetailsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(width: 5,),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -358,6 +375,7 @@ class DetailsCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 5,),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -419,6 +437,7 @@ class DetailsCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 5,),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -480,6 +499,71 @@ class DetailsCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 5,),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            Constants.getAssetGeneralName("dropdash", "svg"),
+                            color: CustomColors.REMIS_DARK_PURPLE,
+                            width: 27,
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Text(
+                            "LPG",
+                            style: TextStyle(
+                                color: CustomColors.REMIS_DARK_PURPLE,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  Constants.getAssetGeneralName("naira", "svg"),
+                                  color: Colors.grey[700],
+                                  width: 12,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  lpgAmount,
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              lpgVolume + "ltr(s)",
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 5,),
+
+
                   ],
                 ),
               ),

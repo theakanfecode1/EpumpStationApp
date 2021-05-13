@@ -125,7 +125,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       Navigator.of(context).pop();
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(
-          result,
+          result == NetworkStrings.BAD_REQUEST ? "This username does not exist" : result,
           style: TextStyle(color: Colors.white),
         ),
         duration: Duration(seconds: 2),
@@ -152,7 +152,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   onTextChangedUsername(String text) {
     setState(() {
       userName = text;
-      if (text.isEmpty || text == null) {
+      if (text.trim().isEmpty || text == null) {
         usernameError = true;
       } else {
         usernameError = false;
@@ -163,7 +163,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   onTextChangedPassword(String text) {
     password = text;
     firstLaunch = true;
-    if (text.length < 6) {
+    if (text.length < 6 || text.trim().isEmpty) {
       setState(() {
         passwordError = true;
       });

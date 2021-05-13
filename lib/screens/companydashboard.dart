@@ -169,6 +169,10 @@ class _CompanyDashboardState extends State<CompanyDashboard> {
                               companySaleStore.todayAgoAmount),
                           agoVolume: Constants.formatThisInput(
                               companySaleStore.todayAgoVolume),
+                      lpgAmount: Constants.formatThisInput(
+                          companySaleStore.todayLpgAmount),
+                      lpgVolume: Constants.formatThisInput(
+                          companySaleStore.todayLpgVolume),
                         )),
                 if (!dataIsFiltered)
                   Column(
@@ -190,6 +194,10 @@ class _CompanyDashboardState extends State<CompanyDashboard> {
                               companySaleStore.yesterdayAgoAmount),
                           agoVolume: Constants.formatThisInput(
                               companySaleStore.yesterdayAgoVolume),
+                          lpgAmount: Constants.formatThisInput(
+                              companySaleStore.yesterdayLpgAmount),
+                          lpgVolume: Constants.formatThisInput(
+                              companySaleStore.yesterdayLpgVolume),
                         ),
                       ),
                       Observer(
@@ -209,6 +217,10 @@ class _CompanyDashboardState extends State<CompanyDashboard> {
                               companySaleStore.monthAgoAmount),
                           agoVolume: Constants.formatThisInput(
                               companySaleStore.monthAgoVolume),
+                          lpgAmount: Constants.formatThisInput(
+                              companySaleStore.monthLpgAmount),
+                          lpgVolume: Constants.formatThisInput(
+                              companySaleStore.monthLpgVolume),
                         ),
                       ),
                     ],
@@ -230,6 +242,8 @@ class DetailsCard extends StatelessWidget {
   final String dpkVolume;
   final String agoAmount;
   final String agoVolume;
+  final String lpgAmount;
+  final String lpgVolume;
 
   DetailsCard(
       {this.headerColor,
@@ -240,7 +254,7 @@ class DetailsCard extends StatelessWidget {
       this.dpkAmount,
       this.dpkVolume,
       this.agoAmount,
-      this.agoVolume});
+      this.agoVolume,this.lpgVolume,this.lpgAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -300,6 +314,7 @@ class DetailsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(width: 5,),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -361,6 +376,7 @@ class DetailsCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 5,),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -422,6 +438,7 @@ class DetailsCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 5,),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -483,6 +500,70 @@ class DetailsCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(width: 5,),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            Constants.getAssetGeneralName("dropdash", "svg"),
+                            color: CustomColors.REMIS_DARK_PURPLE,
+                            width: 27,
+                          ),
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Text(
+                            "LPG",
+                            style: TextStyle(
+                                color: CustomColors.REMIS_DARK_PURPLE,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  Constants.getAssetGeneralName("naira", "svg"),
+                                  color: Colors.grey[700],
+                                  width: 12,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  lpgAmount,
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              lpgVolume + "ltr(s)",
+                              style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 5,),
+
                   ],
                 ),
               ),

@@ -93,7 +93,7 @@ class NetworkRequest {
         sharedPreferences.setString("FIRST_NAME", accountLogin.firstName);
         sharedPreferences.setString("LAST_NAME", accountLogin.lastName);
         sharedPreferences.setString("ROLE", role);
-        sharedPreferences.setString("EMAIL", accountLogin.email);
+        /*34145*/  sharedPreferences.setString("EMAIL", accountLogin.email);
         return {"statusCode": 200, "object": accountLogin};
       }
     } on SocketException {
