@@ -28,12 +28,12 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NetworkRequest {
-  static const EPUMP_BASE_URL = "https://api.epump.com.ng/";
-  static const EPUMP_BRANCH = EPUMP_BASE_URL + "Branch/";
-  static const EPUMP_COMPANY = EPUMP_BASE_URL + "Company/";
-  static const EPUMP_ACCOUNT = EPUMP_BASE_URL + "Account/";
-  static const EPUMP_STAFF = EPUMP_BASE_URL + "Staff/";
-  static const EPUMP_TANK = EPUMP_BASE_URL + "Tank/";
+  static const EPUMP_BASE_URL = "https://api..******..com.ng/";
+  static const EPUMP_BRANCH = EPUMP_BASE_URL + ".******./";
+  static const EPUMP_COMPANY = EPUMP_BASE_URL + ".******./";
+  static const EPUMP_ACCOUNT = EPUMP_BASE_URL + ".******./";
+  static const EPUMP_STAFF = EPUMP_BASE_URL + ".******./";
+  static const EPUMP_TANK = EPUMP_BASE_URL + ".******./";
 
   static String BRANCHID = "";
   static String COMPANYID = "";
